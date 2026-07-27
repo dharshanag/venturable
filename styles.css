@@ -1,0 +1,626 @@
+/* ==========================================================================
+   Venturable — global stylesheet
+   Palette: clean green + light gray. One sans-serif, flat colors, light bands.
+   ========================================================================== */
+
+:root {
+  /* Greens — brighter and friendlier than a deep forest */
+  --green-950: #0E2E1F;
+  --green-900: #14402B;
+  --green-800: #185339;
+  --green-700: #1E6B47;
+  --green-600: #21834F;
+  --green-500: #2E9E66;
+  --green-400: #52B583;
+  --green-300: #93D9B4;
+  --green-100: #E7F4EC;
+
+  /* Grays */
+  --gray-050: #FBFCFB;
+  --gray-100: #F4F6F4;
+  --gray-200: #E6EAE7;
+  --gray-300: #D3D9D4;
+  --gray-400: #AEB6B0;
+  --gray-500: #7C857F;
+  --gray-600: #58615B;
+
+  --ink: #16241C;
+  --ink-soft: #43514A;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+
+  /* Softer shadows — the flatter look leans on borders, not depth */
+  --shadow-sm: 0 1px 2px rgba(20, 64, 43, .05), 0 1px 3px rgba(20, 64, 43, .04);
+  --shadow: 0 2px 8px rgba(20, 64, 43, .07), 0 6px 18px rgba(20, 64, 43, .06);
+  --shadow-lg: 0 6px 20px rgba(20, 64, 43, .09), 0 16px 40px rgba(20, 64, 43, .08);
+
+  --max: 1160px;
+  --gutter: clamp(20px, 5vw, 48px);
+
+  /* Fraunces for headings/wordmark, Inter for body text */
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* ---------- Reset / base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  background: var(--gray-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--green-900);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 .5em;
+  font-weight: 600;
+}
+
+h1 { font-size: clamp(2.3rem, 5.2vw, 3.6rem); }
+h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); }
+h3 { font-size: clamp(1.15rem, 2vw, 1.35rem); }
+
+p { margin: 0 0 1.1em; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--green-600); text-decoration-color: var(--green-300); text-underline-offset: 3px; }
+a:hover { color: var(--green-500); }
+
+img, svg { max-width: 100%; display: block; }
+
+ul, ol { margin: 0 0 1.1em; padding-left: 1.2em; }
+li { margin-bottom: .4em; }
+
+:focus-visible {
+  outline: 3px solid var(--green-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 999;
+  background: var(--green-800); color: #fff;
+  padding: 12px 20px; border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------- Layout helpers ---------- */
+
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.wrap--narrow { max-width: 780px; }
+
+section { padding-block: clamp(56px, 8vw, 104px); }
+section.tight { padding-block: clamp(40px, 5vw, 64px); }
+
+.section-head { max-width: 660px; margin-bottom: clamp(32px, 4vw, 52px); }
+.section-head.center { margin-inline: auto; text-align: center; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--green-500);
+  margin-bottom: .9em;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: var(--green-400);
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.lede { font-size: clamp(1.05rem, 1.7vw, 1.2rem); color: var(--ink-soft); }
+
+.grid { display: grid; gap: clamp(18px, 2.4vw, 30px); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+
+/* Dark band */
+.band-dark {
+  background: var(--green-900);
+  color: var(--gray-300);
+}
+.band-dark h1, .band-dark h2, .band-dark h3 { color: var(--gray-050); }
+.band-dark .eyebrow,
+.cta-band .eyebrow { color: var(--green-300); }
+
+.band-dark .eyebrow::before,
+.cta-band .eyebrow::before { background: var(--green-400); }
+
+.band-dark a { color: var(--green-300); }
+
+/* The lede sets its own dark color for light backgrounds; on dark bands that would be
+   dark-on-dark, so brighten it back up. */
+.band-dark .lede,
+.cta-band .lede { color: var(--gray-200); }
+
+.band-light { background: var(--gray-050); }
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; gap: .55em;
+  font-family: var(--font-body);
+  font-size: .96rem; font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease, box-shadow .18s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary { background: var(--green-600); color: #fff; box-shadow: var(--shadow-sm); }
+.btn-primary:hover { background: var(--green-500); color: #fff; box-shadow: var(--shadow); }
+
+.btn-accent { background: var(--green-300); color: var(--green-950); }
+.btn-accent:hover { background: #9ADFB8; color: var(--green-950); }
+
+.btn-ghost { border-color: var(--green-600); color: var(--green-700); background: transparent; }
+.btn-ghost:hover { background: var(--green-600); color: #fff; }
+
+/* Ghost buttons that sit on a dark surface need light borders/text */
+.band-dark .btn-ghost,
+.cta-band .btn-ghost,
+.panel--dark .btn-ghost { border-color: var(--green-400); color: var(--gray-050); }
+
+.band-dark .btn-ghost:hover,
+.cta-band .btn-ghost:hover,
+.panel--dark .btn-ghost:hover { background: var(--green-300); color: var(--green-950); border-color: var(--green-300); }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* ---------- Header: persistent top bar + centred brand below ---------- */
+
+.site-header { background: var(--green-900); }
+
+/* Row 1 — the menu. Always visible, never collapses behind a toggle.
+   Sticky on its own so the nav stays reachable while the brand scrolls away. */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7, 27, 16, .97);
+  backdrop-filter: saturate(160%) blur(10px);
+  border-bottom: 1px solid rgba(127, 209, 163, .18);
+}
+
+.nav-links {
+  display: flex; flex-wrap: wrap;
+  align-items: stretch; justify-content: center;
+  list-style: none; margin: 0 auto; padding: 0;
+  max-width: var(--max);
+}
+/* Menu items share the bar evenly; the Donate pill keeps its own width. */
+.nav-links li { margin: 0; display: flex; flex: 1 1 auto; }
+.nav-links li + li { border-left: 1px solid rgba(127, 209, 163, .14); }
+
+.nav-links a {
+  display: flex; align-items: center; justify-content: center;
+  flex: 1;
+  padding: 15px clamp(14px, 2.6vw, 34px);
+  color: var(--gray-300);
+  text-decoration: none;
+  font-size: .97rem; font-weight: 500;
+  letter-spacing: .01em;
+  transition: background-color .16s ease, color .16s ease;
+}
+.nav-links a:hover { background: rgba(127, 209, 163, .13); color: #fff; }
+.nav-links a[aria-current="page"] { background: var(--green-700); color: #fff; font-weight: 600; }
+
+/* The CTA is a button, not a nav link — it must beat `.nav-links a` on specificity. */
+.nav-cta { border-left: 0 !important; flex: 0 0 auto !important; align-items: center; padding-left: clamp(8px, 1.6vw, 20px); }
+.nav-links .nav-cta a.btn-accent {
+  background: var(--green-300); color: var(--green-950);
+  padding: 8px 22px; border-radius: 999px; font-weight: 600;
+}
+.nav-links .nav-cta a.btn-accent:hover { background: #9ADFB8; color: var(--green-950); }
+
+/* Row 2 — the brand */
+.brandbar {
+  text-align: center;
+  padding-block: clamp(22px, 3.6vw, 40px);
+  border-bottom: 1px solid rgba(127, 209, 163, .12);
+}
+
+.brand {
+  display: inline-flex; align-items: center; gap: clamp(12px, 1.8vw, 20px);
+  text-decoration: none; color: var(--gray-050);
+  font-family: var(--font-display);
+  font-weight: 600; letter-spacing: -.02em;
+  font-size: clamp(1.9rem, 4.4vw, 2.9rem);
+}
+.brand:hover { color: #fff; }
+
+/* The logo's bars are dark green, so it needs the light ground it was drawn on —
+   without this it disappears into the dark header and footer. */
+.brand img, .brand svg {
+  height: clamp(54px, 7vw, 76px); width: auto;
+  background: var(--gray-050);
+  border-radius: 16px;
+  padding: 7px;
+}
+
+/* Footer brand stays small */
+.site-footer .brand { font-size: 1.28rem; gap: 12px; }
+.site-footer .brand img { height: 42px; border-radius: 11px; padding: 5px; }
+
+@media (max-width: 640px) {
+  .nav-links a { padding: 12px 14px; font-size: .9rem; }
+  /* Wrapped rows can put a divider flush against the screen edge — hide it there. */
+  .nav-links li { border-left: 0 !important; border-right: 1px solid rgba(127, 209, 163, .14); }
+  .nav-links li:last-of-type { border-right: 0; }
+  .nav-cta {
+    flex: 1 1 100% !important;
+    justify-content: center;
+    padding: 12px var(--gutter) 14px;
+    border-right: 0 !important;
+  }
+  .nav-links .nav-cta a.btn-accent { flex: 0 1 auto; padding: 11px 34px; }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  background: var(--green-100);
+  border-bottom: 1px solid var(--gray-200);
+  padding-block: clamp(60px, 9vw, 100px);
+}
+.hero h1 { color: var(--green-900); max-width: 18ch; }
+.hero .lede { max-width: 56ch; font-size: clamp(1.05rem, 1.8vw, 1.22rem); }
+.hero .btn-row { margin-top: 30px; }
+
+/* Page header (interior pages) — same flat light band as the hero */
+.page-head {
+  background: var(--green-100);
+  border-bottom: 1px solid var(--gray-200);
+  padding-block: clamp(44px, 6vw, 72px);
+}
+.page-head h1 { color: var(--green-900); margin-bottom: .35em; }
+.page-head .lede { max-width: 62ch; }
+
+/* ---------- Cards ---------- */
+
+.card {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: clamp(22px, 2.6vw, 32px);
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--gray-300); }
+.card h3 { margin-bottom: .45em; }
+.card p { color: var(--ink-soft); font-size: .97rem; }
+
+.card-icon {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: var(--green-800);
+  color: var(--green-300);
+  margin-bottom: 18px;
+}
+.card-icon svg { width: 22px; height: 22px; }
+
+.band-dark .card {
+  background: rgba(255, 255, 255, .045);
+  border-color: rgba(127, 209, 163, .18);
+  box-shadow: none;
+}
+.band-dark .card:hover { border-color: rgba(127, 209, 163, .38); background: rgba(255,255,255,.07); }
+.band-dark .card p { color: var(--gray-300); }
+.band-dark .card-icon { background: rgba(127, 209, 163, .14); }
+
+/* ---------- Stats ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: clamp(18px, 3vw, 40px);
+}
+.stat { text-align: center; }
+.stat .num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.4vw, 3.1rem);
+  font-weight: 600;
+  color: var(--green-300);
+  line-height: 1;
+  display: block;
+}
+.stat .label {
+  display: block;
+  margin-top: 10px;
+  font-size: .84rem; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+/* ---------- Team ---------- */
+
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(20px, 3vw, 34px); }
+
+.member {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.member:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+.member-photo {
+  aspect-ratio: 4 / 3;
+  background: var(--green-700);
+  display: grid; place-items: center;
+  color: var(--green-300);
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: .04em;
+}
+.member-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.member-body { padding: 24px clamp(20px, 2.4vw, 28px) 28px; }
+/* The team section is a dark band, but these cards are white — keep the name AND the
+   bio dark so `.band-dark`'s light text color doesn't wash them out on white. */
+.member-body h3 { margin-bottom: .18em; color: var(--green-900); }
+.member-body p { font-size: .96rem; color: var(--ink-soft); }
+.member-role {
+  font-size: .86rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--green-500);
+  margin-bottom: 1em;
+}
+.member-body p { font-size: .96rem; }
+
+/* ---------- Project cards ---------- */
+
+.project {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.project-banner {
+  min-height: 110px;
+  background: var(--green-700);
+}
+.project-body { padding: clamp(22px, 2.6vw, 32px); }
+
+.tag {
+  display: inline-block;
+  font-size: .74rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--gray-200);
+  color: var(--green-700);
+  margin: 0 6px 8px 0;
+}
+.tag-live { background: var(--green-300); color: var(--green-950); }
+
+/* ---------- Blog ---------- */
+
+.post {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: clamp(22px, 2.6vw, 30px);
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.post:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.post-meta { font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; color: var(--gray-500); margin-bottom: .8em; }
+.post h3 { margin-bottom: .4em; }
+.post h3 a { color: var(--green-900); text-decoration: none; }
+.post h3 a:hover { color: var(--green-600); }
+.read-more { font-weight: 600; font-size: .93rem; text-decoration: none; }
+.read-more::after { content: " →"; }
+
+/* ---------- Forms ---------- */
+
+.form { display: grid; gap: 18px; }
+.field { display: grid; gap: 7px; }
+.field label { font-size: .9rem; font-weight: 600; color: var(--green-900); }
+.field .hint { font-size: .82rem; color: var(--gray-500); font-weight: 400; }
+
+.field input, .field select, .field textarea {
+  font-family: inherit; font-size: 1rem; color: var(--ink);
+  padding: 12px 15px;
+  border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  width: 100%;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--green-500);
+  box-shadow: 0 0 0 3px rgba(74, 158, 114, .18);
+}
+.field textarea { min-height: 150px; resize: vertical; }
+
+.form-note { font-size: .88rem; color: var(--gray-500); }
+
+.form-status {
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--green-300);
+  color: var(--green-950);
+  font-weight: 600;
+  font-size: .94rem;
+}
+.form-status[hidden] { display: none; }
+
+/* ---------- Embedded Google Form ----------
+   A cross-origin iframe can't report its own height, so this is fixed. Err on the tall
+   side: too short gives the form its own inner scrollbar, too tall just adds white space
+   that blends into the white panel behind it. */
+.embed-form {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+}
+.embed-form iframe {
+  display: block;
+  width: 100%;
+  height: 1180px;
+  border: 0;
+}
+@media (max-width: 640px) {
+  /* Narrower column means questions wrap, so the form gets taller. */
+  .embed-form iframe { height: 1420px; }
+}
+
+/* ---------- Split panel (Get Involved) ---------- */
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: clamp(26px, 3vw, 40px);
+  box-shadow: var(--shadow-sm);
+}
+.panel--dark {
+  background: var(--green-900);
+  border-color: var(--green-700);
+  color: var(--gray-300);
+}
+.panel--dark h2, .panel--dark h3 { color: #fff; }
+.panel--dark .eyebrow { color: var(--green-300); }
+.panel--dark .eyebrow::before { background: var(--green-400); }
+
+/* Tier list */
+.tiers { display: grid; gap: 14px; margin: 26px 0; }
+.tier {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--gray-050);
+}
+.tier .amount {
+  font-family: var(--font-display); font-size: 1.35rem; font-weight: 600;
+  color: var(--green-600); flex-shrink: 0; min-width: 68px;
+}
+.tier .desc { font-size: .95rem; }
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; margin: 0 0 1.4em; }
+.checklist li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: .7em;
+  font-size: .97rem;
+}
+.checklist li::before {
+  content: "";
+  position: absolute; left: 0; top: .45em;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--green-300);
+  box-shadow: inset 0 0 0 4px var(--green-700);
+}
+
+/* ---------- Contact details ---------- */
+
+.contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px; }
+.contact-list li { margin: 0; }
+.contact-list .k {
+  display: block;
+  font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--green-300);
+  margin-bottom: 5px;
+}
+/* Long addresses must not push the panel wider than the screen. */
+.contact-list .v { font-size: 1.04rem; color: var(--gray-050); overflow-wrap: anywhere; }
+.contact-list .v a { color: var(--gray-050); }
+
+/* ---------- CTA band ---------- */
+
+.cta-band {
+  background: var(--green-900);
+  color: var(--gray-300);
+  text-align: center;
+}
+.cta-band h2 { color: #fff; }
+.cta-band .btn-row { justify-content: center; margin-top: 28px; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: var(--green-950);
+  color: var(--gray-400);
+  padding-block: clamp(48px, 6vw, 72px) 32px;
+  font-size: .93rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  margin-bottom: 40px;
+}
+@media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr; } }
+
+.site-footer h4 {
+  color: var(--gray-050);
+  font-family: var(--font-body);
+  font-size: .8rem; letter-spacing: .11em; text-transform: uppercase;
+  margin-bottom: 1.1em;
+}
+.site-footer ul { list-style: none; padding: 0; margin: 0; }
+.site-footer li { margin-bottom: .6em; }
+.site-footer a { color: var(--gray-400); text-decoration: none; }
+.site-footer a:hover { color: var(--green-300); }
+.site-footer .brand { margin-bottom: 16px; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(127, 209, 163, .14);
+  padding-top: 24px;
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
+  font-size: .86rem; color: var(--gray-500);
+}
+
+/* ---------- Editor notes (remove once real content is in) ---------- */
+
+.todo {
+  border-left: 4px solid #C9A227;
+  background: #FFF8E1;
+  color: #6B5411;
+  padding: 14px 18px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: .9rem;
+  margin: 0 0 1.4em;
+}
+.todo strong { color: #4A3A0B; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

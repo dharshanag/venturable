@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -14 1030 935" role="img" aria-label="Venturable logo">
+  <title>Venturable</title>
+
+  <!-- Vertical bar -->
+  <rect x="425" y="18" width="126" height="850" rx="63" fill="#1D5245"/>
+  <!-- Horizontal bar -->
+  <rect x="64" y="375" width="850" height="140" rx="70" fill="#1D5245"/>
+
+  <!-- Light dots at the four bar ends -->
+  <circle cx="488" cy="88"  r="34" fill="#85CFA6"/>
+  <circle cx="488" cy="800" r="34" fill="#85CFA6"/>
+  <circle cx="128" cy="445" r="34" fill="#85CFA6"/>
+  <circle cx="850" cy="445" r="34" fill="#85CFA6"/>
+
+  <!-- Wand, drawn over the bars -->
+  <line x1="165" y1="772" x2="722" y2="198" stroke="#4A9B72" stroke-width="68" stroke-linecap="butt"/>
+
+  <!-- Wand handle end -->
+  <circle cx="163" cy="774" r="53" fill="#1D5245"/>
+  <circle cx="163" cy="774" r="33" fill="#4A9B72"/>
+
+  <!-- Star -->
+  <path d="M778,10 L810.3,100.5 L906.4,103.3 L830.3,162 L857.4,254.2 L778,200 L698.6,254.2 L725.7,162 L649.6,103.3 L745.7,100.5 Z"
+        fill="#85CFA6" stroke="#1D5245" stroke-width="26" stroke-linejoin="round"/>
+
+  <!-- Centre hub -->
+  <circle cx="488" cy="445" r="86" fill="#FFFFFF"/>
+  <circle cx="488" cy="445" r="47" fill="#1D5245"/>
+</svg>
